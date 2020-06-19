@@ -1,0 +1,35 @@
+{
+  "name": "vscode-react-fragment-actions",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capaj/vscode-react-fragment-actions.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/capaj/vscode-react-fragment-actions/issues"
+  },
+  "homepage": "https://github.com/capaj/vscode-react-fragment-actions#readme",
+  "engines": {
+    "vscode": "^1.32.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact"
+  ],
+  "main": "./dist/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "typescript": "^3.9.5",
+    "@types/vscode": "^1.46.0"
+  }
+}
