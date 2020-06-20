@@ -7,7 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
       ["typescriptreact", "javascriptreact"],
       new Fragmentizer(),
       {
-        providedCodeActionKinds: Fragmentizer.providedCodeActionKinds,
+        providedCodeActionKinds: Fragmentizer.providedCodeActionKinds
       }
     )
   )
@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
  */
 export class Fragmentizer implements vscode.CodeActionProvider {
   public static readonly providedCodeActionKinds = [
-    vscode.CodeActionKind.QuickFix,
+    vscode.CodeActionKind.QuickFix
   ]
 
   public provideCodeActions(
@@ -49,8 +49,22 @@ export class Fragmentizer implements vscode.CodeActionProvider {
     range: vscode.Range
   ) {
     const start = range.start
-    const line = document.lineAt(start.line)
-    return line.text.includes("return")
+    const currentLine = document.lineAt(start.line)
+    const nextLine = document.lineAt(start.line + 1)
+    const isStartOfElementRegex = /\s\<([A-Z])\w+/i
+
+    if (
+      currentLine.text.includes("return (\n") &&
+      nextLine.text.includes("<") &&
+      nextLine.text.match(isStartOfElementRegex)
+    ) {
+      return true
+    }
+    if (currentLine.text.includes("return <")) {
+      return true
+    }
+
+    return currentLine.text.match(isStartOfElementRegex)
   }
 
   private createFix(
